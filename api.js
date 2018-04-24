@@ -18,13 +18,13 @@ export function logOut() {
 }
 
 // login trae el user de firebase con el uid token
-export function logIn(user) {
-  return firebase.auth().signInWithEmailAndPassword(user.email, user.password);
+export function logIn(email,password) {
+  return firebase.auth().signInWithEmailAndPassword(email,password)
 }
 
 // registra el usuario en firebase auth luego debe salvar el usuario en db con el metodo set y que tenga de llave el uid de el
 export function signUp(user) {
-  return firebase.auth().createUserWithEmailAndPassword(user.email,user.password);
+  return firebase.auth().createUserWithEmailAndPassword(user.email,user.password)
 }
 
 export function createUserInDatabase(newUser) {

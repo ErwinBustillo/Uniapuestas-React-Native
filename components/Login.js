@@ -17,29 +17,33 @@ class Login extends Component {
   constructor(props) {
     super(props)
   
-    this.state = {
+    this.state = ({
        email:'',
        password:''
-    };
+    })  
   };
 
-  onSubmit = () => {
-    const { email, password } = this.state;
-    const user = { email, password };
-    
-    if(email !=null && password !=null){
-        logIn(user).then((u) => {
-          console.log('usuario: ' +u);
-          //this.props.setU(u);
-      });
+  login =(email,password)=>{
+    if (email == '') {
+      alert('Digite su email');
+      return;
     }
+    if (password == '') {
+      alert('Digite la clave');
+      return;
+    }   
     
+       
+    logIn(email,password).then((u) => {
+        alert("Usuario logueado exitosamente" + u.email);        
+        //this.props.setU(u);
+    });       
   }
   
   render() {
     return (
       <Container>
-        <Header />
+       
         <Content
           contentContainerStyle={{
             flex: 1,
@@ -64,9 +68,7 @@ class Login extends Component {
                     onChangeText={(password)=>this.setState({password})}  />
             </Item>
           </Form>
-          <Button block onPress={() => {           
-            this.onSubmit();
-          }}>
+          <Button block onPress={()=> this.login(this.state.email,this.state.password)} >
             <Text>Login</Text>
           </Button>
           <Button

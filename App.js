@@ -29,25 +29,36 @@ export default class App extends Component {
       user: null,
       ready:false
     };
+    this.setUser = this.setUser.bind(this);
   }
 
 
 
-  setUser(usuario){
+  setUser = (usuario) => {
     this.setState({
       user:usuario
     });
   }
   
 
-  render() {   
-      if (this.state.user == null) {
+  render() {  
+      return(
+        <View>
+          {
+            this.state.user ?
+            <DrawerNav usuario={ this.state.user } />
+            :<StackNav setU={this.setUser} />
+          }
+        </View>
+      );   
+
+      /*if (this.state.user == null) {
         console.log("EL USUARIO ES NULO");
         return <StackNav setU={this.setUser} />;
       } else {
         console.log("USUARIO == " + this.state.user);
         return <DrawerNav usuario={ this.state.user } />;
-      }
+      }*/
   }
    
 }
@@ -63,8 +74,7 @@ const StackNav = StackNavigator(
   },
   {
     headerMode: "none",
-    initialRouteName: "Login"
-
+    initialRouteName: "Login" 
   }
 );
 

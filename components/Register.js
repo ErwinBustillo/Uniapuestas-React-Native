@@ -13,10 +13,11 @@ import {
   Icon,
   Text
 } from "native-base";
+
 class Register extends Component {
   
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = ({
       displayName: '',
@@ -24,20 +25,42 @@ class Register extends Component {
       password: '',
       confirmPassword: ''
     })
+
   }
 
-  onSubmit = () => {
+  registrar = (displayName,email,password,confirmPassword)=> {
 
-    const {displayName,email,password} = this.state
+    if (displayName == '') {
+      alert('Digite el username');
+      return;
+    }
+    if (email == '') {
+      alert('Digite su email');
+      return;
+    }
+    if (password == '') {
+      alert('Digite la clave');
+      return;
+    }
+    if (confirmPassword== '') {
+      alert('Digite la clave de confirmacion');
+      return;
+    }
+    
 
-    const user = {displayName,email,password}
+    const usuario = ({
+      displayName: displayName,
+      email: email,
+      password: password
+    })
 
-    if (this.state.password === this.state.confirmPassword) {
-      console.log('user' + user);
-      signUp(user).then(() => {
-        createUserInDatabase(user).then((response) => {
-          if (response.success) {            
-            this.props.navigation.goBack();        
+    if (password === confirmPassword) {
+      console.log("usuario" + user);
+      signUp(usuario).then(() => {
+        createUserInDatabase(usuario).then((response) => {
+          if (response.success) { 
+            alert("registro exitoso");           
+            //this.props.navigation.goBack();        
           }
         });
       });
@@ -92,9 +115,7 @@ class Register extends Component {
           </Form>
           <Button 
             block
-            onPress={(e)=> {
-              this.onSubmit();
-            }}
+            onPress={() => this.registrar(this.state.displayName,this.state.email,this.state.password,this.state.confirmPassword)}
           >
             <Text>Register</Text>
           </Button>
