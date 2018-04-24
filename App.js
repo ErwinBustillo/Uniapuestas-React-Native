@@ -34,6 +34,9 @@ export default class App extends Component {
 
 
 
+  componentDidMount(){
+    console.log('Me ejecute antes del render');
+  }
   setUser = (usuario) => {
     this.setState({
       user:usuario
@@ -42,14 +45,8 @@ export default class App extends Component {
   
 
   render() {  
-      return(
-        <View>
-          {
-            this.state.user ?
-            <DrawerNav usuario={ this.state.user } />
-            :<StackNav setU={this.setUser} />
-          }
-        </View>
+      return(       
+        <StackNav usuario={ this.state.user } setU={this.setUser}/>          
       );   
 
       /*if (this.state.user == null) {
@@ -70,6 +67,9 @@ const StackNav = StackNavigator(
     },
     Register: {
       screen: Register
+    },
+    Home:{
+      screen:DrawerNav
     }
   },
   {

@@ -34,9 +34,8 @@ class Login extends Component {
     }   
     
        
-    logIn(email,password).then((u) => {
-        alert("Usuario logueado exitosamente" + u.email);        
-        //this.props.setU(u);
+    logIn(email,password).then((u) => {                
+        this.props.navigation.navigate('Home');
     });       
   }
   
