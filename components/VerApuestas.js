@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+
+
+
 import {
   Icon,
   Button,
@@ -16,6 +19,8 @@ export default class VerApuestas extends Component {
   static navigationOptions = {
     title: "VerApuestas"
   };
+
+  
   render() {
     return (
       <Container>

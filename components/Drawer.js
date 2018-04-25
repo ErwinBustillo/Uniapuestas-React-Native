@@ -1,5 +1,7 @@
+import React from 'react'
+
 import { Container, Content, Icon, Header, Body } from "native-base";
-import {StyleSheet} from 'react-native'
+import {StyleSheet,Image} from 'react-native'
 import {
     DrawerNavigator,
     StackNavigator,
@@ -12,7 +14,7 @@ import MisApuestas from "./MisApuestas";
 import Profile from "./profile";
 import LoadJSON from "./LoadJSON";
 
-import balon from "./ball.png";
+import balon from "../assets/ball.png";
 
 const CustomDrawerContentComponent = props => (
     <Container>

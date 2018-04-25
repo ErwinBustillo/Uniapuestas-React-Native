@@ -45,8 +45,7 @@ class Register extends Component {
     if (confirmPassword== '') {
       alert('Digite la clave de confirmacion');
       return;
-    }
-    
+    }   
 
     const usuario = ({
       displayName: displayName,
@@ -54,13 +53,11 @@ class Register extends Component {
       password: password
     })
 
-    if (password === confirmPassword) {
-      console.log("usuario" + user);
+    if (password === confirmPassword) {      
       signUp(usuario).then(() => {
         createUserInDatabase(usuario).then((response) => {
           if (response.success) { 
-            alert("registro exitoso");           
-                    
+            alert("registro exitoso");        
           }
         });
       });

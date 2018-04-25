@@ -27,18 +27,22 @@ export function signUp(user) {
   return firebase.auth().createUserWithEmailAndPassword(user.email,user.password)
 }
 
+
+export function loadUserData(userId){
+  return userRef.child(userId)
+}
+
 export function createUserInDatabase(newUser) {
   var promise = new Promise((resolve, reject) => {
     firebase.auth().currentUser.updateProfile({
-      displayName: newUser.displayName,
-      
+      displayName: newUser.displayName,      
     })
     .then(() => {
       userRef.child(firebase.auth().currentUser.uid).set( {
-        uid: firebase.auth().currentUser.uid,
+        //uid: firebase.auth().currentUser.uid, //No es necesario ya que la raiz contiene el token
         displayName: firebase.auth().currentUser.displayName,
         email: firebase.auth().currentUser.email,
-       
+        role: 'user',
         points: 0
       })
       .then(() => {

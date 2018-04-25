@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 
 import { 
   StackNavigator,  
-  SafeAreaView,
-  TabNavigator
+  SafeAreaView 
 } from "react-navigation";
 
 import Drawer from './components/Drawer'
@@ -28,38 +27,25 @@ export default class App extends Component {
     })    
   }
 
-  async componentWillMount(){
-    console.log('Me ejecute antes del render');
+  async componentDidMount(){
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
     });
-    this.setState({ ready: true });
-
   }
 
   render() {  
-      if (!this.state.isReady) {
+      if (this.state.ready == false) {
         return <AppLoading />;
       }
       else{
         return(            
-          <View>
-               <StackNav usuario={ this.state.user } /> 
-          </View>  
-                   
-                     
+          <Root>
+               <StackNav  /> 
+          </Root>          
         ); 
-      }   
-        
-      /*if (this.state.user == null) {
-        console.log("EL USUARIO ES NULO");
-        return <StackNav setU={this.setUser} />;
-      } else {
-        console.log("USUARIO == " + this.state.user);
-        return <DrawerNav usuario={ this.state.user } />;
-      }*/
+      }       
   }   
 }
 
