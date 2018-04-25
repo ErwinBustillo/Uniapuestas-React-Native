@@ -40,10 +40,11 @@ class Login extends Component {
         console.log('id:' + u.uid);
         console.log('username:' + u.displayName);
         //TODO buscar en db los points del man 
-        loadUserData(u.uid).once('value').then((snapshot)=>{
+        /*loadUserData(u.uid).once('value').then((snapshot)=>{
             console.log(snapshot.val());
-            this.props.navigation.navigate('Drawer'); //envia al nav drawer
-        });
+           
+        });*/
+        this.props.navigation.navigate('Drawer'); //envia al nav drawer
            
         
     });       

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { StyleSheet, View, Image } from "react-native";
 
 import { 
@@ -6,14 +7,11 @@ import {
   SafeAreaView 
 } from "react-navigation";
 
-import Drawer from './components/Drawer'
-
 import { Font,AppLoading } from "expo";
-
+import {Root} from 'native-base'
+import Drawer from './components/Drawer'
 import Login from "./components/Login";
 import Register from "./components/Register";
-
-import {Root} from 'native-base'
 
 console.disableYellowBox = ['Remote debugger'];
 
@@ -37,12 +35,12 @@ export default class App extends Component {
 
   render() {  
       if (this.state.ready == false) {
-        return <AppLoading />;
+        return <AppLoading/>;
       }
       else{
         return(            
           <Root>
-               <StackNav  /> 
+               <StackNav/> 
           </Root>          
         ); 
       }       
