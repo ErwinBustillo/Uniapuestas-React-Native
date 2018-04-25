@@ -35,11 +35,12 @@ class Login extends Component {
     
        
     logIn(email,password).then((u) => {                
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Drawer'); //envia al nav drawer
     });       
   }
   
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <Container>
        
@@ -73,7 +74,7 @@ class Login extends Component {
           <Button
             transparent
             block
-            onPress={() => this.props.navigation.navigate("Register")}
+            onPress={() => navigate("Register")}
           >
             <Text>Create Account</Text>
           </Button>
