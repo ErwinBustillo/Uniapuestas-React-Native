@@ -11,6 +11,8 @@ import Drawer from './components/Drawer'
 import Login from "./components/Login";
 import Register from "./components/Register";
 
+import {isAuthenticated} from "./api"
+
 console.disableYellowBox = ['Remote debugger'];
 
 export default class App extends Component {
@@ -19,19 +21,51 @@ export default class App extends Component {
 
     this.state = ({
       user: null,
-      ready:false
+      ready:false,
+      initRoute: ""
     })    
   }
 
+  //se revisa si existe en localstorage el usuario que se loggeo cuando la app se vuelve a cargar
+  authListener(){
+      isAuthenticated
+      .then( u=>{
+        if(u != null){
+          this.setState({
+            initRoute: "Drawer",
+            user:u
+          });
+          console.log('usuario: ' + this.state.user.email);
+        }
+        else{
+          console.log('no se ha loggeado');
+          this.setState({
+            initRoute: "Login",
+            user:null
+          });
+          
+        }
+      })
+  }
+
+
+  
   async componentDidMount(){
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
     });
+
+    console.log(this.props.navigation);
+    this.authListener();
+
+
     this.setState({
       ready:true
     });
+
+
   }
 
   render() {  
@@ -40,7 +74,7 @@ export default class App extends Component {
       }
       else{
         return(            
-           <AppNavigation usuario={this.state.user}/> 
+           <AppNavigation user={this.state.user}/> 
         ); 
       }       
   }   

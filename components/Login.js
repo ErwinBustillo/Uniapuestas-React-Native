@@ -36,15 +36,15 @@ class Login extends Component {
        
     logIn(email,password).then((u) => {  
        
-        console.log('usuario: ' +u.email);   
-        console.log('id:' + u.uid);
-        console.log('username:' + u.displayName);
+        //console.log('usuario: ' +u.email);   
+        //console.log('id:' + u.uid);
+        //console.log('username:' + u.displayName);
        
-        /*loadUserData(u.uid).once('value').then((snapshot)=>{
+        loadUserData(u.uid).once('value').then((snapshot)=>{
             console.log(snapshot.val());
-           
-        });*/
-        this.props.navigation.navigate('Drawer');         
+            this.props.navigation.navigate('Drawer'); 
+        });
+                
     });       
   }
   

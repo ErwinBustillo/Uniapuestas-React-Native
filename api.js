@@ -14,7 +14,7 @@ firebase.initializeApp(config);
 const userRef = firebase.database().ref('/users');
 
 export function logOut() {
-  return firebase.auth().signOut();
+  return firebase.auth().signOut()
 }
 
 // login trae el user de firebase con el uid token
@@ -54,3 +54,11 @@ export function createUserInDatabase(newUser) {
     })
   });
 }
+
+
+//promise que escucha 
+export let isAuthenticated = new Promise((resolve, reject) => {
+  firebase.auth().onAuthStateChanged((user)=> {
+    resolve(user)
+    })
+});

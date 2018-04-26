@@ -13,12 +13,21 @@ import {
   Subtitle
 } from "native-base";
 
+
+import {logOut} from "../api"
 export default class VerApuestas extends Component {
   static navigationOptions = {
     title: "VerApuestas"
   };
 
-  
+  logout(){
+    logOut().then(() =>{
+      console.log('Signed Out');
+      this.props.navigation.navigate("Login");
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+  }
   
   render() {
     return (
@@ -44,6 +53,9 @@ export default class VerApuestas extends Component {
           }}
         >
           <Text>Ver Apuestas Screen</Text>
+          <Button block onPress={()=> this.logout()} >
+            <Text>Log Out</Text>
+          </Button>
         </Content>
       </Container>
     );
