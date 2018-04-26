@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 
-import { StyleSheet, View, Image } from "react-native";
 
 import { 
-  StackNavigator,  
-  SafeAreaView 
+  StackNavigator  
 } from "react-navigation";
 
 import { Font,AppLoading } from "expo";
@@ -31,6 +29,9 @@ export default class App extends Component {
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
     });
+    this.setState({
+      ready:true
+    });
   }
 
   render() {  
@@ -39,15 +40,13 @@ export default class App extends Component {
       }
       else{
         return(            
-          <Root>
-               <StackNav/> 
-          </Root>          
+           <AppNavigation usuario={this.state.user}/> 
         ); 
       }       
   }   
 }
 
-const StackNav = StackNavigator(
+const AppNavigation = StackNavigator(
   {
     Drawer:{
       screen:Drawer,
@@ -65,10 +64,4 @@ const StackNav = StackNavigator(
   }
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
-});
+

@@ -35,18 +35,16 @@ class Login extends Component {
     
        
     logIn(email,password).then((u) => {  
-       //Info del usuario 
+       
         console.log('usuario: ' +u.email);   
         console.log('id:' + u.uid);
         console.log('username:' + u.displayName);
-        //TODO buscar en db los points del man 
+       
         /*loadUserData(u.uid).once('value').then((snapshot)=>{
             console.log(snapshot.val());
            
         });*/
-        this.props.navigation.navigate('Drawer'); //envia al nav drawer
-           
-        
+        this.props.navigation.navigate('Drawer');         
     });       
   }
   
