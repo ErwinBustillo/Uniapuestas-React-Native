@@ -32,19 +32,16 @@ class Login extends Component {
       alert('Digite la clave');
       return;
     }   
-    
-       
+
     logIn(email,password).then((u) => {  
-       
+
         //console.log('usuario: ' +u.email);   
         //console.log('id:' + u.uid);
         //console.log('username:' + u.displayName);
-       
         loadUserData(u.uid).once('value').then((snapshot)=>{
             console.log(snapshot.val());
             this.props.navigation.navigate('Drawer'); 
         });
-                
     });       
   }
   
@@ -52,7 +49,6 @@ class Login extends Component {
     const {navigate} = this.props.navigation;
     return (
       <Container>
-       
         <Content
           contentContainerStyle={{
             flex: 1,

@@ -28,6 +28,10 @@ export default class VerApuestas extends Component {
       console.error('Sign Out Error', error);
     });
   }
+
+  componentDidMount() {
+    // traer los partidos 
+  }
   
   render() {
     return (

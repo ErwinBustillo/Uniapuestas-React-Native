@@ -12,6 +12,8 @@ const config = {
 firebase.initializeApp(config);
 
 const userRef = firebase.database().ref('/users');
+const betRef = firebase.database().ref('/bets');
+const matchRef = firebase.database().ref('/matches');
 
 export function logOut() {
   return firebase.auth().signOut()
@@ -55,10 +57,21 @@ export function createUserInDatabase(newUser) {
   });
 }
 
-
 //promise que escucha 
 export let isAuthenticated = new Promise((resolve, reject) => {
   firebase.auth().onAuthStateChanged((user)=> {
     resolve(user)
     })
 });
+
+export function createBet(bet) {
+  return betRef.child(firebase.auth().currentUser.uid).push().set(bet)
+}
+
+export function readBets() {
+  return betRef.child(firebase.auth().currentUser.uid)
+}
+
+export function readMatches() {
+  return matchRef()
+}
