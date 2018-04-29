@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {  View, Text,StyleSheet,Image } from 'react-native';
 import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle } from 'native-base'
 
+import axios from 'axios'
+
 export default class LoadJSON extends Component {
   static navigationOptions = {
     title: 'Load JSON'
