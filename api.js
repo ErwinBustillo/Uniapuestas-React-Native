@@ -74,5 +74,5 @@ export function readBets() {
 }
 
 export function readMatches() {
-  return matchRef()
+  return matchRef
 }
