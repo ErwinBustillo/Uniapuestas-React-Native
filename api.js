@@ -35,7 +35,7 @@ export function loadUserData(userId){
 }
 
 export function createUserInDatabase(newUser) {
-  var promise = new Promise((resolve, reject) => {
+  const promise = new Promise((resolve, reject) => {
     firebase.auth().currentUser.updateProfile({
       displayName: newUser.displayName,      
     })
@@ -55,6 +55,7 @@ export function createUserInDatabase(newUser) {
       })
     })
   });
+  return promise;
 }
 
 //promise que escucha 

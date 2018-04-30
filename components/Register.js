@@ -57,7 +57,8 @@ class Register extends Component {
       signUp(usuario).then(() => {
         createUserInDatabase(usuario).then((response) => {
           if (response.success) { 
-            alert("registro exitoso");        
+            alert("registro exitoso");
+            this.props.navigation.goBack();
           }
         });
       });

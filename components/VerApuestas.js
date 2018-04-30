@@ -54,8 +54,10 @@ export default class VerApuestas extends Component {
             flex: 1,
             alignItems: "center",
             justifyContent: "center"
-          }}
-        >
+          }} >
+          <Button block onPress={()=> this.logout()} >
+            <Text>Crear apuesta</Text>
+          </Button>
           <Text>Ver Apuestas Screen</Text>
           <Button block onPress={()=> this.logout()} >
             <Text>Log Out</Text>
