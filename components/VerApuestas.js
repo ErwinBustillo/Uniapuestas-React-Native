@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,CardItem } from 'native-base'
 
 
-import {logOut,readMatches, createBet, isAuthenticated, loadUserData } from "../api"
+import {logOut,readMatches, createBet, updateUserCounterInMatches } from "../api"
 export default class VerApuestas extends Component {
   static navigationOptions = {
     title: "VerApuestas"
@@ -25,7 +25,8 @@ export default class VerApuestas extends Component {
       homeScore: home_score,
       away_score: away_score
     }
-    createBet(bet).then((ok) => console.log(ok));
+    createBet(bet);
+    updateUserCounterInMatches(match_uid, home_score, away_score);
   }
   
   logout(){
