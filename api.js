@@ -77,6 +77,10 @@ export function readMatches() {
   return matchRef
 }
 
+export function readMatch(matchUid) {
+  return matchRef.child(matchUid)
+}
+
 export function closeMatch(matchUid) {
   const promise = new Promise((resolve, reject) => {
     matchRef.child(matchUid).update({
