@@ -8,6 +8,10 @@ export default class Profile extends Component {
    
   };
   render() {
+    const { params } = this.props.navigation.state;
+    const user = params.user
+    console.log ("USUARIO PARAMS");
+    console.log(user);
     return (
       <Container>
         <Header>
@@ -15,8 +19,8 @@ export default class Profile extends Component {
              <Icon name="menu" onPress={()=> this.props.navigation.navigate('DrawerOpen')} style={{ color: 'white'}}/>
           </Left>
           <Body>
-            <Title>username</Title>
-            <Subtitle>Points: 00</Subtitle>
+            <Title>{user.diplayName}</Title>
+            <Subtitle>Points: {user.points}</Subtitle>
           </Body>
         </Header>
         
@@ -26,6 +30,9 @@ export default class Profile extends Component {
           justifyContent: 'center'
         }}>
           <Text>Profile Screen</Text>
+          <Button>
+            <Text>CARGAR JSON</Text>
+          </Button>
         </Content>
       </Container>
     );

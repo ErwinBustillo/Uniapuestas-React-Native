@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,CardItem, FlatList } from 'native-base'
+import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,CardItem } from 'native-base'
 
 
-import {logOut,readMatches, createBet } from "../api"
+import {logOut,readMatches, createBet, isAuthenticated, loadUserData } from "../api"
 export default class VerApuestas extends Component {
   static navigationOptions = {
     title: "VerApuestas"
@@ -13,7 +13,9 @@ export default class VerApuestas extends Component {
     super(props)
   
     this.state = ({
-       matches:null
+       matches:null,
+       teamA:0, 
+       teamB:0
     })
   }
 
@@ -37,7 +39,7 @@ export default class VerApuestas extends Component {
 
   componentDidMount() {
     // traer los partidos 
-
+    
     readMatches().once('value').then((snapshot)=>{
       //console.log(snapshot.val()); 
       this.setState({matches:snapshot.val()});   
@@ -45,6 +47,10 @@ export default class VerApuestas extends Component {
   }
   
   render() {
+    const { params } = this.props.navigation.state;
+    const user = params.user
+    console.log ("USUARIO PARAMS");
+    console.log(user);
     return (
       <Container>
         <Header>
@@ -56,8 +62,8 @@ export default class VerApuestas extends Component {
             />
           </Left>
           <Body>
-            <Title>username</Title>
-            <Subtitle>Points: 00</Subtitle>
+            <Title>{user.displayName}</Title>
+            <Subtitle>points : {user.points}</Subtitle>
           </Body>
         </Header>
         <Content
@@ -87,12 +93,21 @@ export default class VerApuestas extends Component {
                     <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Gana Equipo B : 0 Usuarios</Text>
                 </CardItem>
                 
+                {
+                  user.role == "user" ?
                   <CardItem footer bordered button onPress={() => {
                     alert("Apostar");
                     this.createbet(item.id, 3, 1);
                   }}>
                       <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", color: 'blue'}}> Apostar</Text>
                   </CardItem>
+                  : <CardItem footer bordered button onPress={() => {
+                    alert("Definir");
+                    
+                  }}>
+                      <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", color: 'blue'}}> Definir</Text>
+                  </CardItem>
+                }
                               
             </Card>
             

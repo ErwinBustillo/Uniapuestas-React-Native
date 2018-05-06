@@ -10,6 +10,10 @@ export default class LoadJSON extends Component {
     
   };
   render() {
+    const { params } = this.props.navigation.state;
+    const user = params.user
+    console.log ("USUARIO PARAMS");
+    console.log(user);
     return (
       <Container>
         <Header>
@@ -17,8 +21,8 @@ export default class LoadJSON extends Component {
              <Icon name="menu" onPress={()=> this.props.navigation.navigate('DrawerOpen')} style={{ color: 'white'}}/>
           </Left>
           <Body>
-            <Title>username</Title>
-            <Subtitle>Points: 00</Subtitle>
+            <Title>{user.displayName}</Title>
+            <Subtitle>Points: {user.points}</Subtitle>
           </Body>
         </Header>
         <Content contentContainerStyle={{

@@ -40,7 +40,9 @@ class Login extends Component {
         //console.log('username:' + u.displayName);
         loadUserData(u.uid).once('value').then((snapshot)=>{
             console.log(snapshot.val());
-            this.props.navigation.navigate('Drawer'); 
+            this.props.navigation.navigate('Drawer',{
+              user: snapshot.val(),
+            }); 
         });
     });       
   }

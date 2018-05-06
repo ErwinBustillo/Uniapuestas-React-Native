@@ -35,10 +35,10 @@ export default class App extends Component {
             initRoute: "Drawer",
             user:u
           });
-          console.log('usuario: ' + this.state.user.email);
+          //console.log('usuario: ' + this.state.user.email);
         }
         else{
-          console.log('no se ha loggeado');
+          //console.log('no se ha loggeado');
           this.setState({
             initRoute: "Login",
             user:null
@@ -57,7 +57,7 @@ export default class App extends Component {
       Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
     });
 
-    console.log(this.props.navigation);
+    
     this.authListener();
 
 
