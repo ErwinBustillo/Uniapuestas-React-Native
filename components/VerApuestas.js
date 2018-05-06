@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,CardItem } from 'native-base'
 
 
-import {logOut,readMatches} from "../api"
+import {logOut,readMatches, createBet } from "../api"
 export default class VerApuestas extends Component {
   static navigationOptions = {
     title: "VerApuestas"
@@ -15,6 +15,15 @@ export default class VerApuestas extends Component {
     this.state = ({
        matches:null
     })
+  }
+
+  createbet(match_uid, home_score, away_score) {
+    const bet = {
+      matchUid: match_uid,
+      homeScore: home_score,
+      away_score: away_score
+    }
+    createBet(bet).then((ok) => console.log(ok));
   }
   
   logout(){
@@ -59,7 +68,11 @@ export default class VerApuestas extends Component {
           }}
           >
           <Card dataArray={this.state.matches} renderRow={(item)=>
-            <CardItem header button onPress={() => alert("This is Card Header")}>
+            <CardItem header button onPress={() => {
+              alert("This is Card Header");
+              console.log(item);
+              this.createbet(item.id, 3, 1);
+              }}>
               <Text>{item.away_team.name}</Text>
             </CardItem>
           }>

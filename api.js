@@ -76,3 +76,19 @@ export function readBets() {
 export function readMatches() {
   return matchRef
 }
+
+export function closeMatch(matchUid) {
+  const promise = new Promise((resolve, reject) => {
+    matchRef.child(matchUid).update({
+      status: "closed"
+    })
+    .then(() => {
+      betRef.on('value', snapshot => {
+        console.log(snapshot.val());
+      });
+      resolve({ success: true });
+    })
+    .catch((error) => reject(error));
+  });
+  return promise;
+}
