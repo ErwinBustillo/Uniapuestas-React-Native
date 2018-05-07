@@ -8,6 +8,7 @@
     "native-base": "^2.4.2",
     "react": "16.3.0-alpha.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
+    "react-native-dialog": "^3.3.0",
     "react-navigation": "^1.5.11"
   }
 }

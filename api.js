@@ -41,7 +41,7 @@ export function createUserInDatabase(newUser) {
     })
     .then(() => {
       userRef.child(firebase.auth().currentUser.uid).set( {
-        //uid: firebase.auth().currentUser.uid, //No es necesario ya que la raiz contiene el token
+        uid: firebase.auth().currentUser.uid, //No es necesario ya que la raiz contiene el token
         displayName: firebase.auth().currentUser.displayName,
         email: firebase.auth().currentUser.email,
         role: 'user',

@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import {  View, Text,StyleSheet,Image } from 'react-native';
 import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle } from 'native-base'
-
+import {logOut} from '../api'
 export default class Profile extends Component {
   static navigationOptions = {
     title: 'Profile'
    
   };
+
+  logout(){
+    logOut().then(() =>{
+      console.log('Signed Out');
+      this.props.navigation.navigate("Login");
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+  }
+
   render() {
     const { params } = this.props.navigation.state;
     const user = params.user
@@ -30,8 +40,8 @@ export default class Profile extends Component {
           justifyContent: 'center'
         }}>
           <Text>Profile Screen</Text>
-          <Button>
-            <Text>CARGAR JSON</Text>
+          <Button block onPress={()=> this.logout()} >
+            <Text>Log Out</Text>
           </Button>
         </Content>
       </Container>

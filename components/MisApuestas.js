@@ -21,6 +21,7 @@ export default class MisApuestas extends Component {
   
   componentDidMount(){
 
+    let apuestas = []
     readBets().once('value').then((snapshot)=>{
       //console.log("APUESTAS");
       
@@ -28,25 +29,25 @@ export default class MisApuestas extends Component {
       apus.push(snapshot.val());
       //console.log(apus);
       
-      let apuestas = []
+      
       apus.map( (a)=>{
         //console.log(a);
-        let obj;
+        let obj = [];
         for (var i in a ){
-            obj = a[i];
+             obj.push(a[i]);
         }
-        readMatch(obj.matchUid).once('value', s =>{
-          //console.log("PARTIDO");
-          //console.log(s.val());
-          apuestas.push(s);
-        });
-        
+        for (var o of obj){
+          readMatch(o.matchUid).once('value', s =>{
+            //console.log("PARTIDO");
+            //console.log(s.val());
+            apuestas.push(s.val());
+            
+          });
+        }
+      });      
+      this.setState({
+        bets: apuestas
       });
-      console.log("APUESTAS")
-      console.log(apuestas);
-      // this.setState({
-      //   bets: apuestas
-      // });
      });
   }
   static navigationOptions = {
@@ -55,8 +56,8 @@ export default class MisApuestas extends Component {
   render() {
     const { params } = this.props.navigation.state;
     const user = params.user
-    console.log ("USUARIO PARAMS");
-    console.log(user);
+    //console.log ("USUARIO PARAMS");
+    //console.log(user);
     console.log("BETS");
     console.log(this.state.bets);
     return (

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,CardItem } from 'native-base'
+import { View, Text, StyleSheet, Image,Modal,TouchableHighlight } from "react-native";
+import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,CardItem,Input,Form,Item } from 'native-base'
 
+import Dialog from "react-native-dialog";
 
 import {logOut,readMatches, createBet, updateUserCounterInMatches } from "../api"
 export default class VerApuestas extends Component {
@@ -15,7 +16,9 @@ export default class VerApuestas extends Component {
     this.state = ({
        matches:null,
        teamA:0, 
-       teamB:0
+       teamB:0,
+       modalVisible: false, 
+       temporalMatch: null,
     })
   }
 
@@ -29,14 +32,13 @@ export default class VerApuestas extends Component {
     updateUserCounterInMatches(match_uid, home_score, away_score);
   }
   
-  logout(){
-    logOut().then(() =>{
-      console.log('Signed Out');
-      this.props.navigation.navigate("Login");
-    }, function(error) {
-      console.error('Sign Out Error', error);
-    });
+  
+
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
+
 
   componentDidMount() {
     // traer los partidos 
@@ -50,8 +52,8 @@ export default class VerApuestas extends Component {
   render() {
     const { params } = this.props.navigation.state;
     const user = params.user
-    console.log ("USUARIO PARAMS");
-    console.log(user);
+    //console.log ("USUARIO PARAMS");
+    //console.log(user);
     return (
       <Container>
         <Header>
@@ -72,7 +74,38 @@ export default class VerApuestas extends Component {
             flex: 1          
           }}
           >
-          
+             <View>
+                <Dialog.Container visible={this.state.modalVisible}>
+                  {
+                    this.state.temporalMatch ? 
+                    <Dialog.Title>{this.state.temporalMatch.away_team.name} VS {this.state.temporalMatch.home_team.name} </Dialog.Title>
+                     : <Text></Text>
+                  }                 
+                   
+                  <Input autoCorrect={false}
+                    placeholder="0"
+                    autoCapitalize="none"                    
+                    onChangeText={(teamA)=>this.setState({teamA})}  />
+                  <Input autoCorrect={false}
+                    placeholder="0"
+                    autoCapitalize="none"                    
+                    onChangeText={(teamB)=>this.setState({teamB})}  />  
+                                                      
+                  <Dialog.Button label="Cancel" onPress={()=>{
+                      this.setModalVisible(false);
+                      this.setState({
+                        temporalMatch:null,
+                      });
+                  }}/>
+                  <Dialog.Button label="Apostar" onPress={()=>{
+                      this.setModalVisible(false);
+                      this.setState({
+                        temporalMatch:null,
+                      });
+                      alert('Apuesta Realizada');
+                  }}/>
+                </Dialog.Container>
+              </View>
           <Card dataArray={this.state.matches} renderRow={(item)=>
             <Card >
                 <CardItem header bordered>
@@ -103,8 +136,10 @@ export default class VerApuestas extends Component {
                       <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", color: 'blue'}}> Apostar</Text>
                   </CardItem>
                   : <CardItem footer bordered button onPress={() => {
-                    alert("Definir");
-                    
+                    this.setState({
+                      temporalMatch:item
+                    });
+                    this.setModalVisible(true);
                   }}>
                       <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", color: 'blue'}}> Definir</Text>
                   </CardItem>
@@ -115,9 +150,7 @@ export default class VerApuestas extends Component {
            
           }>
           </Card>
-          <Button block onPress={()=> this.logout()} >
-            <Text>Log Out</Text>
-          </Button>
+      
         </Content>
       </Container>
     );
