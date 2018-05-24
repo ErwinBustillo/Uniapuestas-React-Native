@@ -4,7 +4,7 @@ import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,
 
 import Dialog from "react-native-dialog";
 
-import {logOut,readMatches, createBet, updateUserCounterInMatches } from "../api"
+import {logOut,readMatches, createBet, updateUserCounterInMatches,closeMatch } from "../api"
 export default class VerApuestas extends Component {
   static navigationOptions = {
     title: "VerApuestas"
@@ -25,20 +25,16 @@ export default class VerApuestas extends Component {
   createbet(match_uid, home_score, away_score) {
     const bet = {
       matchUid: match_uid,
-      homeScore: home_score,
+      home_score: home_score,
       away_score: away_score
     }
     createBet(bet);
     updateUserCounterInMatches(match_uid, home_score, away_score);
   }
   
-  
-
-
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
-
 
   componentDidMount() {
     // traer los partidos 
@@ -52,8 +48,7 @@ export default class VerApuestas extends Component {
   render() {
     const { params } = this.props.navigation.state;
     const user = params.user
-    //console.log ("USUARIO PARAMS");
-    //console.log(user);
+   
     return (
       <Container>
         <Header>
@@ -73,39 +68,77 @@ export default class VerApuestas extends Component {
           contentContainerStyle={{
             flex: 1          
           }}
-          >
-             <View>
-                <Dialog.Container visible={this.state.modalVisible}>
-                  {
-                    this.state.temporalMatch ? 
-                    <Dialog.Title>{this.state.temporalMatch.away_team.name} VS {this.state.temporalMatch.home_team.name} </Dialog.Title>
-                     : <Text></Text>
-                  }                 
-                   
-                  <Input autoCorrect={false}
-                    placeholder="0"
-                    autoCapitalize="none"                    
-                    onChangeText={(teamA)=>this.setState({teamA})}  />
-                  <Input autoCorrect={false}
-                    placeholder="0"
-                    autoCapitalize="none"                    
-                    onChangeText={(teamB)=>this.setState({teamB})}  />  
-                                                      
-                  <Dialog.Button label="Cancel" onPress={()=>{
-                      this.setModalVisible(false);
-                      this.setState({
-                        temporalMatch:null,
-                      });
-                  }}/>
-                  <Dialog.Button label="Apostar" onPress={()=>{
-                      this.setModalVisible(false);
-                      this.setState({
-                        temporalMatch:null,
-                      });
-                      alert('Apuesta Realizada');
-                  }}/>
-                </Dialog.Container>
-              </View>
+        >
+               {
+                 user.role == "user" ?
+                  <View>
+                    <Dialog.Container visible={this.state.modalVisible}>
+                      {
+                        this.state.temporalMatch ? 
+                        <Dialog.Title>{this.state.temporalMatch.away_team.name} VS {this.state.temporalMatch.home_team.name} </Dialog.Title>
+                        : <Text></Text>
+                      }                 
+                      <Input autoCorrect={false}
+                        placeholder="home team score"
+                        autoCapitalize="none"                    
+                        onChangeText={(teamA)=>this.setState({teamA})}  />
+                      <Input autoCorrect={false}
+                        placeholder="away team score"
+                        autoCapitalize="none"                    
+                        onChangeText={(teamB)=>this.setState({teamB})}  />  
+                                                          
+                      <Dialog.Button label="Cancel" onPress={()=>{
+                          this.setModalVisible(false);
+                          /*this.setState({
+                            temporalMatch:null,
+                            teamA: 0,
+                            teamB: 0
+                          });*/
+                      }}/>
+                      <Dialog.Button label="Apostar" onPress={()=>{
+                          
+                          this.createbet(this.state.temporalMatch.id,parseInt(this.state.teamA),parseInt(this.state.teamB));
+                          this.setModalVisible(false);
+                          alert('Apuesta Realizada');
+                          
+                          /*this.setState({
+                            temporalMatch:null,
+                          });*/
+                      }}/>
+                    </Dialog.Container>
+                  </View>
+                 :
+                 <View>
+                    <Dialog.Container visible={this.state.modalVisible}>
+                      {
+                        this.state.temporalMatch ? 
+                        <Dialog.Title>{this.state.temporalMatch.away_team.name} VS {this.state.temporalMatch.home_team.name} </Dialog.Title>
+                        : <Text></Text>
+                      }                 
+                      <Input autoCorrect={false}
+                        placeholder="home team score"
+                        autoCapitalize="none"                    
+                        onChangeText={(teamA)=>this.setState({teamA})}  />
+                      <Input autoCorrect={false}
+                        placeholder="away team score"
+                        autoCapitalize="none"                    
+                        onChangeText={(teamB)=>this.setState({teamB})}  />  
+                                                          
+                      <Dialog.Button label="Cancel" onPress={()=>{
+                          this.setModalVisible(false);
+                      }}/>
+                      <Dialog.Button label="Apostar" onPress={()=>{
+                          
+                          closeMatch(this.state.temporalMatch.id);
+                          this.setModalVisible(false);
+                          alert('Apuesta Realizada');
+                       
+                      }}/>
+                    </Dialog.Container>
+                  </View>
+
+               }
+             
           <Card dataArray={this.state.matches} renderRow={(item)=>
             <Card >
                 <CardItem header bordered>
@@ -130,24 +163,29 @@ export default class VerApuestas extends Component {
                 {
                   user.role == "user" ?
                   <CardItem footer bordered button onPress={() => {
-                    alert("Apostar");
-                    this.createbet(item.id, 3, 1);
+                      if (item.status == "open") {
+                        this.setModalVisible(true);
+                        this.setState({
+                          temporalMatch:item,
+                        });
+                      } else {
+                        alert('EL PARTIDO HA SIDO CERRADO');
+                      }
                   }}>
                       <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", color: 'blue'}}> Apostar</Text>
                   </CardItem>
-                  : <CardItem footer bordered button onPress={() => {
-                    this.setState({
-                      temporalMatch:item
-                    });
-                    this.setModalVisible(true);
+                  : 
+                  <CardItem footer bordered button onPress={() => {
+                      this.setModalVisible(true);
+                      this.setState({
+                        temporalMatch:item,
+                      });
                   }}>
                       <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", color: 'blue'}}> Definir</Text>
                   </CardItem>
                 }
                               
             </Card>
-            
-           
           }>
           </Card>
       

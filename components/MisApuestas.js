@@ -18,7 +18,9 @@ export default class MisApuestas extends Component {
        teamB:0
     })
   }
-  
+  static navigationOptions = {
+    title: 'Mis Apuestas'
+  };
   componentDidMount(){
 
     let apuestas = []
@@ -38,21 +40,22 @@ export default class MisApuestas extends Component {
         }
         for (var o of obj){
           readMatch(o.matchUid).once('value', s =>{
-            //console.log("PARTIDO");
-            //console.log(s.val());
+            console.log("PARTIDO");
+            console.log(s.val());
             apuestas.push(s.val());
             
           });
         }
       });      
-      this.setState({
-        bets: apuestas
-      });
      });
+    console.log("APUESTAS:");
+    console.log(apuestas);
+    this.setState({
+       bets: apuestas,
+    });
   }
-  static navigationOptions = {
-    title: 'Mis Apuestas'
-  };
+
+ 
   render() {
     const { params } = this.props.navigation.state;
     const user = params.user

@@ -81,7 +81,7 @@ export function readMatch(matchUid) {
   return matchRef.child(matchUid)
 }
 
-export function closeMatch(matchUid, key, value) {
+export function closeMatch(matchUid) {
   const promise = new Promise((resolve, reject) => {
     matchRef.child(matchUid).update({
       status: "closed"
@@ -101,7 +101,9 @@ export function updateUserCounterInMatches(match_uid, home_score, away_score) {
   const promise = new Promise((resolve, reject) => {
     matchRef.child(match_uid).once('value', snapshot => {
       const match = snapshot.val();
-      var {team_a, team_b, draws} = 0;
+      var team_a = 0;
+      var team_b = 0;
+      var draws = 0;
       if (match.team_a != null && match.team_b != null && match.draws != null) {
         ({team_a, team_b, draws} = match); 
       }
@@ -116,8 +118,7 @@ export function updateUserCounterInMatches(match_uid, home_score, away_score) {
         team_a: team_a,
         team_b: team_b,
         draws: draws
-      })
-      .then(() => {
+      }).then(() => {
         resolve({ success: true });
       });
     });
