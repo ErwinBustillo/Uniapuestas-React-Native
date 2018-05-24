@@ -59,7 +59,7 @@ class Login extends Component {
             justifyContent: "center"
           }}
         >
-          <Image source={chips}/>
+          <Image source={chips} style={{width: 100, height: 100}}/>
           <Form>
             <Item stackedLabel>
               <Label>Email</Label>
