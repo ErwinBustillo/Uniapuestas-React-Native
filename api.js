@@ -65,12 +65,12 @@ export let isAuthenticated = new Promise((resolve, reject) => {
     })
 });
 
-export function createBet(bet) {
+export function createBet(match_uid,home_score,away_score) {
   var temp = betRef.child(firebase.auth().currentUser.uid).push();
   return temp.set({
-    matchUid: bet.match_uid,
-    home_score: bet.home_score,
-    away_score: bet.away_score,
+    matchUid: match_uid,
+    home_score: home_score,
+    away_score: away_score,
     id: temp.key
   })
   //return betRef.child(firebase.auth().currentUser.uid).push().set(bet)

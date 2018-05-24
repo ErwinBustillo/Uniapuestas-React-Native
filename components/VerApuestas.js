@@ -23,12 +23,12 @@ export default class VerApuestas extends Component {
   }
 
   createbet(match_uid, home_score, away_score) {
-    const bet = {
-      matchUid: match_uid,
-      home_score: home_score,
-      away_score: away_score
-    }
-    createBet(bet);
+    // const bet = {
+    //   matchUid: match_uid,
+    //   home_score: home_score,
+    //   away_score: away_score
+    // }
+    createBet(match_uid,home_score,away_score);
     updateUserCounterInMatches(match_uid, home_score, away_score);
   }
   

@@ -103,8 +103,8 @@ export default class MisApuestas extends Component {
               <Dialog.Button label="Editar" onPress={()=>{
                   
                   console.log("CLAVE BET ");
-                  console.log(this.temporalMatch.id);
-                  //this.updateBet(this.temporalMatch.id,parseInt(this.state.teamA),parseInt(this.state.teamB));
+                  console.log(this.state.temporalMatch.id);
+                  updateBet(this.state.temporalMatch.id,parseInt(this.state.teamA),parseInt(this.state.teamB));
                   alert('Apuesta Actualizada');
                   this.setModalVisible(false);
                   this.setState({
