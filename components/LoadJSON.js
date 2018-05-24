@@ -12,8 +12,7 @@ export default class LoadJSON extends Component {
   render() {
     const { params } = this.props.navigation.state;
     const user = params.user
-    //console.log ("USUARIO PARAMS");
-    //console.log(user);
+    
     return (
       <Container>
         <Header>
@@ -33,9 +32,9 @@ export default class LoadJSON extends Component {
         <Text>Load JSON Screen</Text>
         {
           user.role == "user" ?
-          <Text>Operacion No permitida</Text>
+          <Text style={{color: 'white'}}>Operacion No permitida</Text>
           :<Button block>
-            <Text>Load JSON</Text>
+            <Text style={{color: 'white'}}>Load JSON</Text>
           </Button>
         }         
           

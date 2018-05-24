@@ -66,7 +66,14 @@ export let isAuthenticated = new Promise((resolve, reject) => {
 });
 
 export function createBet(bet) {
-  return betRef.child(firebase.auth().currentUser.uid).push().set(bet)
+  var temp = betRef.child(firebase.auth().currentUser.uid).push();
+  return temp.set({
+    matchUid: bet.match_uid,
+    home_score: bet.home_score,
+    away_score: bet.away_score,
+    id: temp.key
+  })
+  //return betRef.child(firebase.auth().currentUser.uid).push().set(bet)
 }
 
 export function readBets() {
@@ -126,4 +133,15 @@ export function updateUserCounterInMatches(match_uid, home_score, away_score) {
     });
   });
   return promise;
+}
+
+export function updateBet(betid,home_value, away_value){
+    const promise = new Promise((resolve, reject)=>{
+        betRef.child(firebase.auth().currentUser.uid).child(betid).update({
+          home_score:home_value,
+          away_score:away_value
+        }).then(()=> resolve({success: true}))
+        .catch((err)=>reject(err));
+    })
+    return promise;
 }

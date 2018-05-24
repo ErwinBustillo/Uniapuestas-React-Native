@@ -21,8 +21,7 @@ export default class Profile extends Component {
   render() {
     const { params } = this.props.navigation.state;
     const user = params.user
-    console.log ("USUARIO PARAMS");
-    console.log(user);
+  
     return (
       <Container>
         <Header>
@@ -41,10 +40,9 @@ export default class Profile extends Component {
           justifyContent: 'center'
         }}>
 
-          <Text>{user.diplayName}</Text>
           <Image source={avatar} style={{width: 150, height: 150}}/>
           <Button block onPress={()=> this.logout()} >
-            <Text style={{color: 'white'}}>Log Out</Text>
+            <Text style={{color: 'white'}}>LOG OUT</Text>
           </Button>
         </Content>
       </Container>

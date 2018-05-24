@@ -4,7 +4,7 @@ import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle,Card,
 
 import Dialog from "react-native-dialog";
 
-import {logOut,readMatches, createBet, updateUserCounterInMatches,closeMatch } from "../api"
+import {readMatches, createBet, updateUserCounterInMatches,closeMatch } from "../api"
 export default class VerApuestas extends Component {
   static navigationOptions = {
     title: "VerApuestas"
