@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Image} from 'react-native'
 import {
   Container,
   Header,
@@ -12,7 +13,7 @@ import {
   Text
 } from "native-base";
 import { logIn, loadUserData } from "../api";
-
+import chips from '../assets/chips.png'
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -58,6 +59,7 @@ class Login extends Component {
             justifyContent: "center"
           }}
         >
+          <Image source={chips}/>
           <Form>
             <Item stackedLabel>
               <Label>Email</Label>

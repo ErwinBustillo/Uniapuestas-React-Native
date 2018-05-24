@@ -89,21 +89,22 @@ export default class VerApuestas extends Component {
                                                           
                       <Dialog.Button label="Cancel" onPress={()=>{
                           this.setModalVisible(false);
-                          /*this.setState({
+                          this.setState({
                             temporalMatch:null,
                             teamA: 0,
                             teamB: 0
-                          });*/
+                          });
                       }}/>
                       <Dialog.Button label="Apostar" onPress={()=>{
                           
                           this.createbet(this.state.temporalMatch.id,parseInt(this.state.teamA),parseInt(this.state.teamB));
-                          this.setModalVisible(false);
                           alert('Apuesta Realizada');
-                          
-                          /*this.setState({
+                          this.setModalVisible(false);
+                          this.setState({
                             temporalMatch:null,
-                          });*/
+                            teamA: 0,
+                            teamB: 0
+                          });
                       }}/>
                     </Dialog.Container>
                   </View>
@@ -132,7 +133,7 @@ export default class VerApuestas extends Component {
                           closeMatch(this.state.temporalMatch.id);
                           this.setModalVisible(false);
                           alert('Apuesta Realizada');
-                       
+                          
                       }}/>
                     </Dialog.Container>
                   </View>
@@ -157,7 +158,7 @@ export default class VerApuestas extends Component {
                     <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Empate : 0 Usuarios</Text>
                 </CardItem>
                 <CardItem cardBody  >
-                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Gana Equipo B : 0 Usuarios</Text>
+                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Gana Equipo B : 1 Usuarios</Text>
                 </CardItem>
                 
                 {
