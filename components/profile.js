@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {  View, Text,StyleSheet,Image } from 'react-native';
 import { Icon, Button, Container,Body, Header,Left, Content,Title,Subtitle } from 'native-base'
-import {logOut} from '../api'
+import {logOut} from '../api';
+import avatar from '../assets/man.png';
 export default class Profile extends Component {
   static navigationOptions = {
     title: 'Profile'
@@ -39,7 +40,9 @@ export default class Profile extends Component {
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <Text>Profile Screen</Text>
+
+          <Text>{user.diplayName}</Text>
+          <Image source={avatar} style={{width: 150, height: 150}}/>
           <Button block onPress={()=> this.logout()} >
             <Text style={{color: 'white'}}>Log Out</Text>
           </Button>

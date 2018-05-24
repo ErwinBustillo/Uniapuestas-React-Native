@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { signUp, createUserInDatabase } from "../api";
-
+import {Image} from 'react-native'
 import {
   Container,
   Header,
@@ -13,6 +13,7 @@ import {
   Icon,
   Text
 } from "native-base";
+import chips from '../assets/chips.png';
 
 class Register extends Component {
   
@@ -79,6 +80,7 @@ class Register extends Component {
             justifyContent: "center"
           }}
         >
+        <Image source={chips} style={{width: 100, height: 100}}/>
           <Form>
             <Item stackedLabel>
               <Label>Username</Label>

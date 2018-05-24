@@ -45,7 +45,10 @@ class Login extends Component {
               user: snapshot.val(),
             }); 
         });
-    });       
+    }).catch((err)=>{
+      console.log(err.message);
+      alert('Error de credenciales');
+    })       
   }
   
   render() {
