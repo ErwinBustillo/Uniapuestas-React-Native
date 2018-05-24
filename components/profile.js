@@ -41,7 +41,7 @@ export default class Profile extends Component {
         }}>
           <Text>Profile Screen</Text>
           <Button block onPress={()=> this.logout()} >
-            <Text>Log Out</Text>
+            <Text style={{color: 'white'}}>Log Out</Text>
           </Button>
         </Content>
       </Container>

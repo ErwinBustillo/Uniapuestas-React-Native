@@ -81,10 +81,12 @@ export function readMatch(matchUid) {
   return matchRef.child(matchUid)
 }
 
-export function closeMatch(matchUid) {
+export function closeMatch(matchUid,home_score,away_score) {
   const promise = new Promise((resolve, reject) => {
     matchRef.child(matchUid).update({
-      status: "closed"
+      status: "closed",
+      final_score_team_a:home_score,
+      final_score_team_b:away_score
     })
     .then(() => {
       betRef.on('value', snapshot => {

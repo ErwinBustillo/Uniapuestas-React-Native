@@ -127,13 +127,22 @@ export default class VerApuestas extends Component {
                                                           
                       <Dialog.Button label="Cancel" onPress={()=>{
                           this.setModalVisible(false);
+                          this.setState({
+                            temporalMatch:null,
+                            teamA: 0,
+                            teamB: 0
+                          });
                       }}/>
                       <Dialog.Button label="Apostar" onPress={()=>{
                           
-                          closeMatch(this.state.temporalMatch.id);
+                          closeMatch(this.state.temporalMatch.id,parseInt(this.state.teamA),parseInt(this.state.teamB));
+                          alert('Operacion Realizada');
                           this.setModalVisible(false);
-                          alert('Apuesta Realizada');
-                          
+                          this.setState({
+                            temporalMatch:null,
+                            teamA: 0,
+                            teamB: 0
+                          });
                       }}/>
                     </Dialog.Container>
                   </View>
@@ -152,13 +161,13 @@ export default class VerApuestas extends Component {
                     <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Grupo {item.group}</Text>
                 </CardItem>
                 <CardItem cardBody>
-                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Gana Equipo A : 0 Usuarios</Text>
+                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Gana Equipo A : {item.team_a} usuarios</Text>
                 </CardItem>
                 <CardItem cardBody>
-                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Empate : 0 Usuarios</Text>
+                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Empate : {item.draws} usuarios</Text>
                 </CardItem>
                 <CardItem cardBody  >
-                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Gana Equipo B : 1 Usuarios</Text>
+                    <Text style={{fontSize:20, fontFamily: 'Roboto', fontStyle: "bold", paddingLeft:10}}> Gana Equipo B : {item.team_b} usuarios</Text>
                 </CardItem>
                 
                 {
